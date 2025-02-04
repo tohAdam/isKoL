@@ -21,42 +21,31 @@ namespace PaymentSystem
                 Console.WriteLine("4: Exit");
                 Console.Write("Enter option (1-4): ");
 
-                if (int.TryParse(Console.ReadLine(), out choice))
+                choice = int.Parse(Console.ReadLine()); // Basic integer input
+
+                switch (choice)
                 {
-                    switch (choice)
-                    {
-                        case 1:
-                            Console.Write("Enter payment amount: "); // More descriptive prompt
-                            if (double.TryParse(Console.ReadLine(), out double payment))
-                            {
-                                totalPrice = MakePayment(totalPrice, payment);
-                                Console.WriteLine($"Updated Total: {totalPrice:C}"); // Removed redundant phrase
-                            }
-                            else
-                            {
-                                Console.WriteLine("Invalid input. Please enter a valid number.");
-                            }
-                            break;
-                        case 2:
-                            ApplyDiscount(ref totalPrice);
-                            Console.WriteLine($"Discount applied. Total after Discount: {totalPrice:C}"); // Removed redundant phrase
-                            break;
-                        case 3:
-                            double finalPrice;
-                            CalculateFinalPrice(totalPrice, out finalPrice);
-                            Console.WriteLine($"Final Price after Discount: {finalPrice:C}"); // Removed redundant phrase
-                            break;
-                        case 4:
-                            Console.WriteLine("Exiting the system. Thank you for using the Simple Payment System!");
-                            break;
-                        default:
-                            Console.WriteLine("Invalid choice. Please try again.");
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please enter a number.");
+                    case 1:
+                        Console.Write("Enter payment amount: ");
+                        double payment = double.Parse(Console.ReadLine()); // Basic double input
+                        totalPrice = MakePayment(totalPrice, payment);
+                        Console.WriteLine($"Updated Total: {totalPrice:C}");
+                        break;
+                    case 2:
+                        ApplyDiscount(ref totalPrice);
+                        Console.WriteLine($"Discount applied. Total after Discount: {totalPrice:C}");
+                        break;
+                    case 3:
+                        double finalPrice;
+                        CalculateFinalPrice(totalPrice, out finalPrice);
+                        Console.WriteLine($"Final Price after Discount: {finalPrice:C}");
+                        break;
+                    case 4:
+                        Console.WriteLine("Exiting the system. Thank you for using the Simple Payment System!");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
                 }
 
             } while (choice != 4);
