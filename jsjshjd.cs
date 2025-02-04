@@ -26,11 +26,11 @@ namespace PaymentSystem
                     switch (choice)
                     {
                         case 1:
-                            Console.Write("Processing fee added: ");
+                            Console.Write("Enter payment amount: "); // More descriptive prompt
                             if (double.TryParse(Console.ReadLine(), out double payment))
                             {
                                 totalPrice = MakePayment(totalPrice, payment);
-                                Console.WriteLine($"Updated Total (Call By Reference): {totalPrice:C}");
+                                Console.WriteLine($"Updated Total: {totalPrice:C}"); // Removed redundant phrase
                             }
                             else
                             {
@@ -39,12 +39,12 @@ namespace PaymentSystem
                             break;
                         case 2:
                             ApplyDiscount(ref totalPrice);
-                            Console.WriteLine($"Discount applied. Total after Discount (Call By Reference): {totalPrice:C}");
+                            Console.WriteLine($"Discount applied. Total after Discount: {totalPrice:C}"); // Removed redundant phrase
                             break;
                         case 3:
                             double finalPrice;
                             CalculateFinalPrice(totalPrice, out finalPrice);
-                            Console.WriteLine($"Final Price after Discount (Out Parameter): {finalPrice:C}");
+                            Console.WriteLine($"Final Price after Discount: {finalPrice:C}"); // Removed redundant phrase
                             break;
                         case 4:
                             Console.WriteLine("Exiting the system. Thank you for using the Simple Payment System!");
@@ -66,7 +66,7 @@ namespace PaymentSystem
         static double MakePayment(double currentTotal, double amount)
         {
             double processingFee = amount * 0.10; // 10% processing fee on the payment
-            return currentTotal + amount + processingFee; // Corrected addition
+            return currentTotal + amount + processingFee;
         }
 
         // Call By Reference
