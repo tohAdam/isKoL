@@ -6,7 +6,7 @@ namespace PaymentSystem
     {
         static void Main(string[] args)
         {
-            string programmerName = "Your Name"; // Replace with your name
+            string programmerName = "Pingay, Adamusa U.";
             string programTitle = "Payment System";
 
             double totalPrice = 0;
