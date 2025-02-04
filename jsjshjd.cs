@@ -26,11 +26,11 @@ namespace PaymentSystem
                     switch (choice)
                     {
                         case 1:
-                            Console.Write("Enter payment amount: ");
+                            Console.Write("Processing fee added: ");
                             if (double.TryParse(Console.ReadLine(), out double payment))
                             {
                                 totalPrice = MakePayment(totalPrice, payment);
-                                Console.WriteLine($"Updated Total: {totalPrice:C}"); // Default currency formatting
+                                Console.WriteLine($"Updated Total (Call By Reference): {totalPrice:C}");
                             }
                             else
                             {
@@ -39,15 +39,15 @@ namespace PaymentSystem
                             break;
                         case 2:
                             ApplyDiscount(ref totalPrice);
-                            Console.WriteLine($"Discount applied. Total Price: {totalPrice:C}"); // Default currency
+                            Console.WriteLine($"Discount applied. Total after Discount (Call By Reference): {totalPrice:C}");
                             break;
                         case 3:
                             double finalPrice;
                             CalculateFinalPrice(totalPrice, out finalPrice);
-                            Console.WriteLine($"Final price calculated. Final Price: {finalPrice:C}"); // Default currency
+                            Console.WriteLine($"Final Price after Discount (Out Parameter): {finalPrice:C}");
                             break;
                         case 4:
-                            Console.WriteLine("Exiting program.");
+                            Console.WriteLine("Exiting the system. Thank you for using the Simple Payment System!");
                             break;
                         default:
                             Console.WriteLine("Invalid choice. Please try again.");
