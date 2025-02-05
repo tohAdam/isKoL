@@ -51,7 +51,7 @@ public class Program
             switch (choice)
             {
                 case "1":
-                    val = ps.Payment(val); // Update val with the returned value
+                    val = ps.Payment(val);
                     break;
                 case "2":
                     ps.Discount(ref val);
