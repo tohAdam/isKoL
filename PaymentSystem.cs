@@ -1,6 +1,6 @@
 using System;
 
-public class PaymentSystem // Corrected class name
+public class PaymentSystem
 {
     public double Payment(double val)
     {
