@@ -27,7 +27,7 @@ public class PaymentSystem
     }
 }
 
-public class Program
+public class main
 {
     static void Main(string[] args)
     {
