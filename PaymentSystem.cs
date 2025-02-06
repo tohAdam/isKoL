@@ -1,5 +1,3 @@
-using System;
-
 public class PaymentSystem
 {
     public double Payment(double val)
