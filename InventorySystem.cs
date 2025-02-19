@@ -1,137 +1,105 @@
 using System;
 
-class InventorySystem
+public class HelloWorld
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
-        string[,] users = { { "admin", "admin123" }, { "manager", "manager456" } };
-        bool isAuthenticated = false;
-        int attempts = 0;
+        string[,] users = { {"admin", "admin123"}, {"manager", "manager456"} };
+        string[] products = { "Apples", "Milk", "Bread" };
+        string username, password, choice;
+        int[] stock = { 10, 5, 20 };
+        int tries = 0;
+        bool verify = false; 
 
-        while (attempts < 3)
+        while (tries < 3 && !verify)
         {
-            Console.Write("Enter Username: ");
-            string username = Console.ReadLine();
-            Console.Write("Enter Password: ");
-            string password = Console.ReadLine();
+            Console.WriteLine("Enter Username:");
+            username = Console.ReadLine(); 
+
+            int check = -1;
 
             for (int i = 0; i < users.GetLength(0); i++)
             {
-                if (username == users[i, 0] && password == users[i, 1])
+                if (username == users[i, 0])
                 {
-                    isAuthenticated = true;
-                    break;
+                    check = i;
+                    break; 
                 }
             }
 
-            if (isAuthenticated)
+            if (check == -1)
             {
-                Console.WriteLine("Login Successful! Welcome to the inventory Management System.\n");
-                break;
+                Console.WriteLine("Invalid User");
+                return;
+            }
+
+            Console.WriteLine("Enter Password:");
+            string pass = Console.ReadLine();
+
+            if (pass == users[check, 1])
+            {
+                verify = true;
+                Console.WriteLine("Login Successful! Welcome to the Inventory Management System.");
             }
             else
             {
-                Console.WriteLine("Wrong password\n");
-                Console.WriteLine($"Login failed! Attempt {attempts + 1}/3");
-
-                attempts++;
+                tries++;
+                Console.WriteLine($"Login failed! Attempt {tries} of 3");
             }
         }
 
-        if (!isAuthenticated)
+        if (tries == 3)
         {
-            Console.WriteLine("Too many failed attempts. Exiting...");
+            Console.WriteLine("Too many failed attempts. Exiting program");
             return;
         }
 
-        InventorySystem();
-    }
+        Console.WriteLine("\nSelect an option from the menu:");
+        Console.Write("1. View Inventory\n2. Update Stock\n3. Calculate Total Units\n4. Logout");
 
-    static void InventorySystem()
-    {
-        object[,] products = {
-            { "Apples", "Milk", "Bread" },
-            { 10, 5, 20 }
-        };
-
-        while (true)
+        do
         {
-            Console.WriteLine("\nInventory Management System");
-            Console.WriteLine("1. View Inventory");
-            Console.WriteLine("2. Update Stock");
-            Console.WriteLine("3. Calculate Total Units");
-            Console.WriteLine("4. Logout ");
-            Console.Write("Enter choice: ");
-
-            string choice = Console.ReadLine();
+            Console.Write("\nEnter choice: ");
+            choice = Console.ReadLine();
+            Console.WriteLine();
 
             switch (choice)
             {
                 case "1":
-                    ViewInventory(products);
+                    Console.WriteLine("Current Inventory:");
+                    for (int i = 0; i < products.Length; i++) 
+                        Console.WriteLine($"{products[i]}\t:\t{stock[i]} units"); 
                     break;
                 case "2":
-                    UpdateStock(products);
+                    Console.Write("Enter product name: ");
+                        string prod = Console.ReadLine();
+
+                    for (int i = 0; i < products.Length; i++) 
+                    {
+                        if (prod == products[i])
+                        {
+                            Console.Write("Enter quantity to add: ");
+                              int add = Convert.ToInt32(Console.ReadLine());
+                              stock[i] += add; 
+                                Console.WriteLine($"Updated Inventory: {products[i]} now has {stock[i]} units");
+                                    break;
+                        }
+                    }
                     break;
                 case "3":
-                    CalculateTotalStock(products);
+                    int total = 0;
+                    for (int i = 0; i < stock.Length; i++) 
+                        total += stock[i]; 
+                            Console.WriteLine($"Total products in stock: {total} units");
                     break;
                 case "4":
                     Console.WriteLine("Logout Successfully. Exiting System.");
                     return;
                 default:
-                    Console.WriteLine("Try again.");
+                    Console.WriteLine("Invalid Input. Try again.");
                     break;
             }
-        }
-    }
 
-    static void ViewInventory(object[,] products)
-    {
-        Console.WriteLine("\nInventory Details:");
-        for (int i = 0; i < products.GetLength(1); i++)
-        {
-            string productName = (string)products[0, i];
-            int stock = (int)products[1, i];
-            Console.WriteLine($"{productName}: {stock} units");
-        }
-    }
-
-    static void UpdateStock(object[,] products)
-    {
-        Console.Write("Enter product name to update stock: ");
-        string productName = Console.ReadLine();
-
-        int productIndex = -1;
-        for (int i = 0; i < products.GetLength(1); i++)
-        {
-            if ((string)products[0, i] == productName)
-            {
-                productIndex = i;
-                break;
-            }
-        }
-
-        if (productIndex == -1)
-        {
-            Console.WriteLine("Product not found.");
-        }
-        else
-        {
-            Console.Write("Enter quantity to add: ");
-            int quantity = int.Parse(Console.ReadLine());
-            products[1, productIndex] = (int)products[1, productIndex] + quantity;
-            Console.WriteLine($"{productName} stock updated successfully.");
-        }
-    }
-
-    static void TotalStock(object[,] products)
-    {
-        int totalStock = 0;
-        for (int i = 0; i < products.GetLength(1); i++)
-        {
-            totalStock += (int)products[1, i];
-        }
-        Console.WriteLine($"Total stock in inventory: {totalStock} units.");
+        } while (choice != "4");
     }
 }
